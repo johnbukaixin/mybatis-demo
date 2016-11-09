@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptl.demo">
+	<select id="selectModule" resultType="com.ptl.demo.bean.Module">
+		select module_id as moduleID,module_code as moduleCode,module_name as
+		moduleName,isnew as isNew from t_module
+	</select>
+</mapper>
