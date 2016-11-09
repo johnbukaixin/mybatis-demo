@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptl.demo.mapper.ModuleMapper">
+	<update id="saveModuleById" parameterType="com.ptl.demo.bean.Module"
+		keyProperty="moduleId" statementType="PREPARED" useGeneratedKeys="true">
+		insert into t_module(module_code,module_name,isnew)
+		values(#{moduleCode},#{moduleName},#{isNew})
+	</update>
+
+	<update id="updateModuleById">
+		update t_module set
+		module_code=#{moduleCode},module_name=#{moduleName},isnew=#{isNew}
+		where module_id=#{moduleId}
+	</update>
+
+	<update id="deleteModuleById">
+		delete from t_module where module_id=#{value}
+	</update>
+</mapper>
