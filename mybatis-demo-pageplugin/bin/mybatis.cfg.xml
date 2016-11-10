@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <typeAliases>
+		<!-- 给指定包中所有bean起别名  类名首字母小写 -->
+		<!-- com.bjsxt.demo.entity.Module module -->
+		<package name="com.ptl.demo.bean"/>
+  </typeAliases>
+    
+    <plugins>
+     <plugin interceptor="com.github.pagehelper.PageHelper">
+       <property name="dialect" value="mysql"/>
+     </plugin>
+    </plugins>
+  
+  <environments default="developement">
+    <environment id="developement">
+       <transactionManager type="JDBC"></transactionManager>
+       <dataSource type="POOLED">
+          <property name="driver" value="com.mysql.jdbc.Driver"/>
+          <property name="url" value="jdbc:mysql://localhost:3306/yxl?useUnicode=true&amp;characterEncoding=utf8"/>
+          <property name="username" value="root"/>
+          <property name="password" value="root"/>
+       </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/ptl/demo/mapper/OptionMapper.xml"/>
+    <!-- <mapper class="com.ptl.demo.mapper.ModuleMapper.xml"/> -->
+  </mappers>
+</configuration>
