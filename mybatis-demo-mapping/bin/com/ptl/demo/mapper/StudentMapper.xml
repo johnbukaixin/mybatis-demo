@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptl.demo.mapper.StudentMapper">
+	<select id="getStudents" resultMap="studentMap">
+		select s.stu_id, s.stu_name,
+		c.cls_id, c.cls_name from t_stu s left
+		join t_cls c on
+		s.cls_id=c.cls_id
+	</select>
+	<select id="getStudentByClazzId" resultMap="studentMapTwo" parameterType="int">
+		select * from t_stu where cls_id=#{value}
+	</select>
+	<resultMap type="student" id="studentMap">
+		<id column="stu_id" property="studentId" />
+		<result column="stu_name" property="studentName" />
+		<association property="clazz" javaType="clazz">
+			<id column="cls_id" property="clazzId" />
+			<result column="cls_name" property="clazzName" />
+		</association>
+	</resultMap>
+	<resultMap type="student" id="studentMapTwo">
+		<id column="stu_id" property="studentId" />
+		<result column="stu_name" property="studentName" />
+	</resultMap>
+
+
+</mapper>
