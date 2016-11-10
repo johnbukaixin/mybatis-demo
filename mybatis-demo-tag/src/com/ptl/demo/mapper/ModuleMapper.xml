@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptl.demo.mapper.ModuleMapper">
+	<select id="getModuleById1" resultMap="moduleMap" parameterType="module">
+		select * from t_module where 1=1
+		<if test="moduleCode!=null">
+			and module_code=#{moduleCode}
+		</if>
+		<if test="moduleId!=0">
+			and module_id=#{moduleId}
+		</if>
+	</select>
+	<select id="getModuleById" resultMap="moduleMap" parameterType="module">
+		select * from t_module
+		<where>
+			<if test="moduleCode!=null">
+				and module_code=#{moduleCode}
+			</if>
+			<if test="moduleId!=0">
+				and module_id=#{moduleId}
+			</if>
+		</where>
+	</select>
+	<update id="updateModuleById" parameterType="module">
+		update t_module set
+		<if test="moduleCode!=null">
+			module_code=#{moduleCode},
+		</if>
+		<if test="moduleName!=null">
+			module_name=#{moduleName},
+		</if>
+		isnew=#{isNew}
+		where module_id=#{moduleId}
+	</update>
+
+
+	<resultMap type="module" id="moduleMap">
+		<id column="module_id" property="moduleCode" />
+		<result column="module_code" property="moduleCode" />
+		<result column="module_name" property="moduleName" />
+		<result column="isnew" property="isNew" />
+	</resultMap>
+</mapper>
