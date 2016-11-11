@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptl.demo.mapper.DeveloperMapper">
+
+<resultMap type="developer" id="developerMap">
+   <id column="did" property="did"/>
+   <result column="dname" property="dname"/>
+   <collection property="projects" javaType="java.util.ArrayList" ofType="project"
+   select="com.ptl.demo.mapper.ProjectMapper.getProjectByDid" column="did">
+     <id column="pid" property="pid"/>
+     <result column="pname" property="pname"/>
+   </collection>
+</resultMap>
+	
+  <select id="getDevelopers" resultMap="developerMap">
+     select * from developer
+  </select>
+  
+  <select id="getDeveloperByPid" resultMap="developerMapTwo">
+    select * from developer where did in (select did from relation where pid=#{value}) 
+  </select>
+  
+  <resultMap type="developer" id="developerMapTwo">
+    <id column="did" property="did"/>
+    <result column="dname" property="danme"/>
+  </resultMap>
+	
+</mapper>
