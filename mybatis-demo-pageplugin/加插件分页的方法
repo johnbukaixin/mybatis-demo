@@ -1,0 +1,27 @@
+1、加三个jar包：pagehelper-4.1.6.jar,mybatis-paginator-1.2.15.jar,jsqlparser-0.9.5.jar，这三个jar包在github上可以下载，其详细用法其readme上也有详细介绍。
+2、mybatis的配置文件中配置上插件,其实就是配置一个拦截器，这个拦截器的完整路径：com.github.pagehelper.PageHelper,然后在配置数据库方言，解决不同数据库分页语法
+不一致问题，这里可以配置多种数据库语言。
+ <plugins>
+   <plugin interceptor="com.github.pagehelper.PageHelper">
+         <property name="dialect" value="mysql"/>  
+   </plugin>
+</plugins
+3、映射文件中可以只写select * from xxx
+4、在Test文件中，
+		SqlSession session = MBU.openSession();
+		ModuleMapper mapper = session.getMapper(ModuleMapper.class);
+		//分页：第一个参数表示页数，第二个表示多少条记录
+		PageHelper.startPage(2, 3);
+		List<Module> ms = mapper.getPaginatedModules();
+		PageInfo<Module> pi = new PageInfo<Module>(ms);
+		int pageNum = pi.getPageNum();
+		long total = pi.getTotal();
+		session.close();
+		
+		System.out.println("page数字：" + pageNum);
+		System.out.println("total = " + total);
+		
+		for (Module m : ms) {
+			System.out.println(m);
+		}
+   
